@@ -1,7 +1,8 @@
 {
   "expo": {
-    "name": "contact",
-    "slug": "contact",
+    "name": "Contactly",
+    "slug": "Contactly",
+    "scheme": "contactly",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -25,6 +26,15 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-contacts",
+        {
+          "contactsPermission": "Allow Contactly to access your contacts."
+        }
+      ]
+    ]
   }
 }
