@@ -1,7 +1,7 @@
 import { StyleSheet, View } from "react-native";
 import React from "react";
-import Header from "../components/Header";
-import ContactList from "../components/ContactList";
+import Header from "../components/home/Header";
+import ContactList from "../components/home/ContactList";
 
 const Home = () => {
   return (

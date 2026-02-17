@@ -1,8 +1,9 @@
 import { SectionList, StyleSheet, Text, View } from "react-native";
 import React, { useCallback, useMemo } from "react";
-import { TypeOfContact, useContact } from "../providers/Contact";
+import { TypeOfContact, useContact } from "../../providers/Contact";
 import ContactItem from "./ContactItem";
-import GroupContact from "../config/groupContact";
+import GroupContact from "../../config/groupContact";
+import Sperator from "../UI/Sperator";
 
 const ContactList = () => {
   const { contacts } = useContact();
@@ -10,6 +11,7 @@ const ContactList = () => {
     const renderItem = useCallback(
       ({ item }: { item: TypeOfContact }) => (
         <ContactItem
+          id={item.id}
           name={item.name}
           hasImg={item.imageAvailable ?? false}
           imageUri={item.image?.uri}
@@ -30,7 +32,7 @@ const ContactList = () => {
               <Text style={styles.headerText}>{section.title}</Text>
             </View>
           )}
-          renderSectionFooter={({}) => <View style={styles.sectionDivider} />}
+          renderSectionFooter={({}) => <Sperator />}
           stickySectionHeadersEnabled
         />
       </View>

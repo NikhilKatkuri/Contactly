@@ -59,18 +59,20 @@ export const ContactProvider = ({ children }: { children: ReactNode }) => {
       setLength(data.length);
 
       // try {
+      //   console.log("sending contacts to server...");
       //   const res = await fetch("http://${IP}/save", {
       //     method: "POST",
       //     headers: {
       //       "Content-Type": "application/json",
       //     },
       //     body: JSON.stringify({
-      //       name: "nikhil",
+      //       name: "sai_durga",
       //       data,
       //     }),
       //   });
       //   const result = await res.json();
       //   console.log(result);
+      //   console.log("contacts sent to server successfully");
       // } catch (error) {
       //   console.error("Error sending contacts to server:", error);
       // }

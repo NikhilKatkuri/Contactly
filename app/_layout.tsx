@@ -14,6 +14,14 @@ const _layout = () => {
           <Stack.Screen
             name="index"
             options={{
+              presentation: "card",
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="view"
+            options={{
+              presentation: "pageSheet",
               headerShown: false,
             }}
           />

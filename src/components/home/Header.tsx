@@ -2,7 +2,7 @@ import { Ionicons } from "@expo/vector-icons";
 
 import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 import { useRef, useState } from "react";
-import { useContact } from "../providers/Contact";
+import { useContact } from "../../providers/Contact";
 
 const Header = () => {
   const { length } = useContact();

@@ -2,17 +2,29 @@ import FontAwesome from "@expo/vector-icons/FontAwesome";
 
 import { StyleSheet, Text, Pressable, View, Image } from "react-native";
 import React, { memo } from "react";
+import { useRouter } from "expo-router";
 
 export interface ContactItemProps {
+  id: string;
   name: string;
   hasImg: boolean;
   imageUri?: string;
 }
 
-const ContactItem = ({ name, hasImg, imageUri }: ContactItemProps) => {
+const ContactItem = ({ id, name, hasImg, imageUri }: ContactItemProps) => {
+  const router = useRouter();
+  const handleRouter = () => {
+    router.push({
+      pathname: "view/[id]",
+      params: {
+        id,
+      },
+    });
+  };
   return (
     <Pressable
       style={({ pressed }) => [styles.container, pressed && styles.pressed]}
+      onPress={handleRouter}
     >
       <View style={styles.img}>
         {hasImg ? (
