@@ -1,61 +1,47 @@
-import { StyleSheet, View } from "react-native";
-import React, { useEffect, useState } from "react";
-import Header from "../components/viewScreen/Header";
-import ContactView from "../components/viewScreen/ContactView";
-import Sperator from "../components/UI/Sperator";
-import PhoneItem from "../components/viewScreen/PhoneItem";
-import VideoCallItem from "../components/viewScreen/VideoCallItem";
-import { TypeOfContact, useContact } from "../providers/Contact";
+import { View } from "react-native";
+import ViewScreenWrapper from "../components/viewScreen";
+import { useViewScreen, ViewScreenProvider } from "../providers/ViewScreen";
+import WhatsAppModal from "../components/modals/WhatsApp.modal";
+import ViewModal from "../components/modals/ViewModal";
+import MailModal from "../components/modals/Mail.modal";
 
-interface ViewScreenProps {
-  id?: string;
-}
-const ViewScreen = ({ id = "" }: ViewScreenProps) => {
-  const [contact, setcontact] = useState<TypeOfContact | undefined>(undefined);
-  const [loading, setloading] = useState(true);
-  const { contacts } = useContact();
-  const getContact = async () => {
-    const contObject = contacts.find((contact) => contact.id === id);
-    setcontact(contObject);
-    setloading(false);
-  };
-  useEffect(() => {
-    getContact();
-  }, [id]);
-  if (loading || !contact) {
-    return <View style={styles.body} />;
-  }
+const ViewContainer = () => {
+  const {
+    whatsAppModalVisible,
+    setWhatsAppModalVisible,
+    mailModalVisible,
+    setMailModalVisible,
+  } = useViewScreen();
+
   return (
-    <View style={styles.body}>
-      <Header />
-      <ContactView
-        hasImage={contact.imageAvailable ?? false}
-        name={contact.name}
-        uri={contact.image?.uri ?? undefined}
-      />
-      <View style={{ paddingHorizontal: 2 }}>
-        <Sperator />
-      </View>
-      <View>
-        <PhoneItem
-          number={contact.phoneNumbers?.[0].number}
-          type="Mobile"
-          country="India"
-        />
-        <VideoCallItem number={contact.phoneNumbers?.[0].number} />
-      </View>
+    <View style={{ flex: 1 }}>
+      <ViewScreenWrapper layerView={whatsAppModalVisible || mailModalVisible}>
+        <ViewModal
+          title="WhatsApp"
+          visible={whatsAppModalVisible}
+          onRequestClose={() => setWhatsAppModalVisible(false)}
+        >
+          <WhatsAppModal />
+        </ViewModal>
+
+        <ViewModal
+          title="Mail"
+          visible={mailModalVisible}
+          onRequestClose={() => setMailModalVisible(false)}
+        >
+          <MailModal />
+        </ViewModal>
+      </ViewScreenWrapper>
     </View>
   );
 };
 
-export default ViewScreen;
+const ViewScreen = () => {
+  return (
+    <ViewScreenProvider>
+      <ViewContainer />
+    </ViewScreenProvider>
+  );
+};
 
-const styles = StyleSheet.create({
-  body: {
-    flex: 1,
-    backgroundColor: "white",
-    width: "100%",
-    display: "flex",
-    flexDirection: "column",
-  },
-});
+export default ViewScreen;

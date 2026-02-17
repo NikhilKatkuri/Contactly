@@ -33,8 +33,8 @@ const VideoCallItem = ({ number }: VideoCallItemProps) => {
         <View>
           <Text style={{ fontSize: 16, fontWeight: "500" }}>Video call</Text>
         </View>
-        <View style={styles.img}>
-          <Ionicons name="videocam" size={20} color="gray" />
+        <View style={{ ...styles.img, backgroundColor: "#4487f2" }}>
+          <Ionicons name="videocam" size={20} color="white" />
         </View>
       </View>
     </Pressable>

@@ -3,6 +3,7 @@ import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { StyleSheet, Text, Pressable, View, Image } from "react-native";
 import React, { memo } from "react";
 import { useRouter } from "expo-router";
+import { useContact } from "../../providers/Contact";
 
 export interface ContactItemProps {
   id: string;
@@ -13,12 +14,12 @@ export interface ContactItemProps {
 
 const ContactItem = ({ id, name, hasImg, imageUri }: ContactItemProps) => {
   const router = useRouter();
+  const { setIdx } = useContact();
+
   const handleRouter = () => {
+    setIdx(Number(id));
     router.push({
-      pathname: "view/[id]",
-      params: {
-        id,
-      },
+      pathname: "view",
     });
   };
   return (

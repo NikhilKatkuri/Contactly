@@ -57,12 +57,12 @@ const PhoneItem = ({ number, type, country }: PhoneItemProps) => {
           </View>
         </View>
         <View style={{ ...styles.content, gap: 16 }}>
-          <View style={styles.img}>
-            <Ionicons name="call" size={20} color="gray" />
+          <View style={{ ...styles.img, backgroundColor: "#25D366" }}>
+            <Ionicons name="call" size={20} color="white" />
           </View>
           <Pressable onPress={handleSMS}>
-            <View style={styles.img}>
-              <Ionicons name="chatbox" size={20} color="gray" />
+            <View style={{ ...styles.img, backgroundColor: "#4487f2" }}>
+              <Ionicons name="chatbox" size={20} color="white" />
             </View>
           </Pressable>
         </View>

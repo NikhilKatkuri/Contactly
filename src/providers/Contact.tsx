@@ -9,9 +9,16 @@ import * as Contacts from "expo-contacts";
 
 export type TypeOfContact = Contacts.ExistingContact;
 
+export interface ContactView {
+  loading: boolean;
+  contact: TypeOfContact | undefined;
+}
 interface ContactContextType {
   contacts: TypeOfContact[];
   length: number;
+  setIdx: (idx: number) => void;
+  idx: number;
+  contact: ContactView;
 }
 
 const ContactContext = createContext<ContactContextType | undefined>(undefined);
@@ -19,6 +26,7 @@ const ContactContext = createContext<ContactContextType | undefined>(undefined);
 export const ContactProvider = ({ children }: { children: ReactNode }) => {
   const [contacts, setContacts] = useState<TypeOfContact[]>([]);
   const [length, setLength] = useState(0);
+
   const contactHandler = async () => {
     const { status } = await Contacts.requestPermissionsAsync();
     if (status === "granted") {
@@ -83,8 +91,29 @@ export const ContactProvider = ({ children }: { children: ReactNode }) => {
     contactHandler();
   }, []);
 
+  const [idx, setIdx] = useState(0);
+
+  const [contact, setcontact] = useState<ContactView>({
+    loading: true,
+    contact: undefined,
+  });
+
+  const getContact = async () => {
+    const contObject = contacts.find(
+      (contact) => contact.id === idx.toString(),
+    );
+    setcontact({
+      loading: false,
+      contact: contObject,
+    });
+  };
+
+  useEffect(() => {
+    getContact();
+  }, [idx]);
+
   return (
-    <ContactContext.Provider value={{ contacts, length }}>
+    <ContactContext.Provider value={{ contacts, length, idx, setIdx, contact }}>
       {children}
     </ContactContext.Provider>
   );
